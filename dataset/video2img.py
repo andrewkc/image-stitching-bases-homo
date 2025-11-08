@@ -31,8 +31,8 @@ def save_img(video_path):
 
 if __name__ == '__main__':
     # path to video folds eg: video_path = './Test/'
-    video_path = './Contant-Aware-DeepH-Data/Data/Test'
-    save_img(video_path)
-    # video_path = './Contant-Aware-DeepH-Data/Data/Train'
+    # video_path = './Contant-Aware-DeepH-Data/Data/Test'
     # save_img(video_path)
+    video_path = './Contant-Aware-DeepH-Data/Data/Train'
+    save_img(video_path)
     

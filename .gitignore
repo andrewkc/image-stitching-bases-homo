@@ -32,3 +32,7 @@ tmp*
 result*
 data/
 .env/
+
+dataset/Contant-Aware-DeepH-Data/
+dataset/Contant-Aware-DeepH-Data.zip
+experiments/base_model/best_0.5012.pth.tar
