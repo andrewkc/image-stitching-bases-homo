@@ -35,16 +35,25 @@ class HomoTrainData(Dataset):
         return len(self.data_infor)
 
     def __getitem__(self, idx):
-
+        
+        ###
+        print("DEBUG 4")
+        ###
+        
         # img loading
         img_names = self.data_infor[idx]
         img_names = img_names.split(' ')
         img1 = cv2.imread(img_names[0]) # Read image according to data list
         img2 = cv2.imread(img_names[1][:-1])
 
+   
         # img aug
         img1, img2, img1_patch, img2_patch, start = self.data_aug(img1, img2, normalize=self.normalize,
                                                                   horizontal_flip=self.horizontal_flip_aug)
+        
+        ###
+        print("DEBUG 5")
+        ###
         # array to tensor
         imgs_gray_full = torch.tensor(np.concatenate([img1, img2], axis=2)).permute(2, 0, 1).float()
         imgs_gray_patch = torch.tensor(np.concatenate([img1_patch, img2_patch], axis=2)).permute(2, 0, 1).float()
@@ -55,6 +64,8 @@ class HomoTrainData(Dataset):
         data_dict["imgs_gray_full"] = imgs_gray_full
         data_dict["imgs_gray_patch"] = imgs_gray_patch
         data_dict["start"] = start
+        
+
 
         return data_dict
 
@@ -156,7 +167,8 @@ class HomoTestData(Dataset):
         data_dict["npy_name"] = npy_name
 
         return data_dict
-
+    
+    ### REVISAR ESTA FUNCIÓN, AQUI ESTA EL ERROR
     def data_aug(self, img1, img2, gray=True, normalize=True, horizontal_flip=True):
 
         if horizontal_flip and random.random() <= .5:

@@ -18,12 +18,10 @@ class Net(nn.Module):
         self.inplanes = 64
         self.layers = [3, 4, 6, 3]
         self.basis_vector_num = 16
-        self.crop_size = params.crop_size
+        self.crop_size = params.crop_size               
         self.basis = gen_basis(self.crop_size[0], self.crop_size[1]).unsqueeze(0).reshape(1, 8, -1) # 8,2,h,w --> 1, 8, 2*h*w
 
-        ### Warp-equivariant feature extractor
         self.share_feature = ShareFeature(1)
-        ###
         
         self.conv1 = nn.Conv2d(2, 64, kernel_size=7, stride=2, padding=3,
                                bias=False)
@@ -67,7 +65,7 @@ class Net(nn.Module):
                 nn.Conv2d(self.inplanes, planes * block.expansion,
                           kernel_size=1, stride=stride, bias=False),
                 nn.BatchNorm2d(planes * block.expansion),
-            )
+            )   
 
         layers = []
         layers.append(block(self.inplanes, planes, stride, downsample))

@@ -35,25 +35,12 @@ def train(model, manager):
     torch.cuda.empty_cache()
     model.train()
 
-
     # Use tqdm for progress bar
     with tqdm(total=len(manager.dataloaders['train'])) as t:
-
-        ###
-        print("DEBUG 2")
-        print(">>> manager.dataloaders['train']: len, type", len(manager.dataloaders['train']), type(manager.dataloaders['train'])) # 50 000
-        ###
         for i, data_batch in enumerate(manager.dataloaders['train']):
-            ###
-            print("DEBUG 3")
-            ###
+
             # move to GPU if available
             data_batch = utils.tensor_gpu(data_batch)
-            
-            ###
-            print(">>> data_batch: type, dim", type(data_batch))
-            #exit()
-            ###
 
             # compute model output and loss
             output_batch = model(data_batch)
@@ -99,10 +86,6 @@ def train_and_evaluate(model, manager):
         manager.check_best_save_last_checkpoints(latest_freq_val=999, latest_freq=1)
 
 if __name__ == '__main__':
-    ###
-    print("DEBUG 1")
-    ###
-    
     # Load the parameters from json file
     args = parser.parse_args()
     json_path = os.path.join(args.model_dir, 'params.json')
@@ -150,4 +133,3 @@ if __name__ == '__main__':
     logger.info("Starting training for {} epoch(s)".format(params.num_epochs))
 
     train_and_evaluate(model, manager)
-
